@@ -1,9 +1,12 @@
+// Variables to hold the DOM elements for note title, note text, and buttons.
 let noteTitle;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+
+// Check if the current page is '/notes' and then get the required DOM elements.
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -42,6 +45,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+  // Function to delete a note.
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,15 +54,19 @@ const deleteNote = (id) =>
     },
   });
 
+  // Function to render the active note.
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
+  // If there is an active note, display it.
   if (activeNote.id) {
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
   } else {
+
+    // If there is no active note, clear the input fields.
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
     noteTitle.value = '';
@@ -66,6 +74,7 @@ const renderActiveNote = () => {
   }
 };
 
+// Function to save a new note when 'Save' button is clicked.
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,

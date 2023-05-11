@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+// Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,6 +26,7 @@ app.get('/api/notes', (req, res) => {
   });
 });
 
+
 app.post('/api/notes', (req, res) => {
   const newNote = req.body;
   newNote.id = uuidv4();
@@ -41,6 +43,7 @@ app.post('/api/notes', (req, res) => {
   });
 });
 
+// API route that deletes a note given its unique id
 app.delete('/api/notes/:id', (req, res) => {
   const noteId = req.params.id;
 
